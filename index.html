@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XP7 Store - Tienda de Aplicaciones</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: white;
             min-height: 100vh;
+            line-height: 1.6;
         }
         .container {
             max-width: 1200px;
@@ -23,35 +28,184 @@
             background: rgba(255,255,255,0.05);
             border-radius: 10px;
             margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .app-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
+            margin-bottom: 40px;
         }
         .app-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 12px;
             padding: 20px;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
         }
         .app-card:hover {
             transform: translateY(-5px);
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .app-card.pak {
+            border-left: 4px solid #4CAF50;
+        }
+        .app-card.act {
+            border-left: 4px solid #2196F3;
+        }
+        .app-card.unknown {
+            border-left: 4px solid #ff9800;
         }
         .app-icon {
-            font-size: 48px;
+            font-size: 40px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .app-card h3 {
+            font-size: 1.2em;
             margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        .app-card.act h3 {
+            color: #2196F3;
+        }
+        .file-type-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .pak-badge {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        .act-badge {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+        .unknown-badge {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
         }
         .install-btn {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 6px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
             width: 100%;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-size: 0.95em;
+        }
+        .install-btn.act-btn {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+        }
+        .install-btn:hover {
+            transform: scale(1.02);
+        }
+        .submit-section {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.7);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .file-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 150px;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .pak-stat {
+            color: #4CAF50;
+        }
+        .act-stat {
+            color: #2196F3;
+        }
+        .total-stat {
+            color: #ff9800;
+        }
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+        .view-btn {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+        .download-btn {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        .action-btn:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -59,49 +213,304 @@
     <div class="container">
         <header>
             <h1>🛒 XP7 Store</h1>
-            <p>Tienda oficial de aplicaciones para XP7 OS</p>
+            <p>Tienda oficial de aplicaciones y actualizaciones para XP7 OS</p>
+            
+            <div class="file-stats">
+                <div class="stat-box">
+                    <div class="stat-number pak-stat" id="pak-count">0</div>
+                    <div>Aplicaciones (.pak)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number act-stat" id="act-count">0</div>
+                    <div>Actualizaciones (.act)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number total-stat" id="total-count">0</div>
+                    <div>Archivos totales</div>
+                </div>
+            </div>
         </header>
-        
+
         <div class="app-grid" id="apps-container">
-            <!-- Las apps se cargarán aquí desde store.json -->
+            <div class="loading">
+                <p>Cargando aplicaciones y actualizaciones...</p>
+            </div>
         </div>
+
+        <div class="submit-section">
+            <h2>📤 ¿Quieres publicar tu app o actualización?</h2>
+            <p>Sube tus archivos .pak (aplicaciones) o .act (actualizaciones) a la tienda</p>
+            <a href="submit.html" class="submit-btn">➕ Subir Archivo</a>
+            <p style="margin-top: 15px; font-size: 0.9em; color: rgba(255,255,255,0.7);">
+                Formatos aceptados: .pak (aplicaciones) y .act (actualizaciones)
+            </p>
+        </div>
+
+        <footer>
+            <p>XP7 Store v1.0.0 • Compatible con XP7 OS v3.0.0+</p>
+            <p>Los archivos .act son actualizaciones del sistema, .pak son aplicaciones</p>
+        </footer>
     </div>
 
     <script>
-        // Cargar apps desde store.json
-        fetch('store.json')
-            .then(response => response.json())
-            .then(data => {
+        // Función para detectar tipo de archivo
+        function detectFileType(url) {
+            if (url.toLowerCase().endsWith('.pak')) {
+                return 'pak';
+            } else if (url.toLowerCase().endsWith('.act')) {
+                return 'act';
+            } else {
+                return 'unknown';
+            }
+        }
+
+        // Función para obtener nombre del tipo
+        function getFileTypeName(type) {
+            switch(type) {
+                case 'pak': return 'Aplicación';
+                case 'act': return 'Actualización';
+                default: return 'Desconocido';
+            }
+        }
+
+        // Función para obtener icono según tipo
+        function getFileIcon(type) {
+            switch(type) {
+                case 'pak': return '📦';
+                case 'act': return '🔄';
+                default: return '📄';
+            }
+        }
+
+        // Función para obtener descripción según tipo
+        function getFileDescription(type, customDesc = '') {
+            if (customDesc) return customDesc;
+            
+            switch(type) {
+                case 'pak': return 'Aplicación para XP7 OS';
+                case 'act': return 'Actualización del sistema XP7 OS';
+                default: return 'Archivo para XP7 OS';
+            }
+        }
+
+        // Función para cargar las aplicaciones
+        async function loadApps() {
+            try {
+                const response = await fetch('store.json');
+                if (!response.ok) {
+                    throw new Error('No se pudo cargar store.json');
+                }
+                
+                const data = await response.json();
                 const container = document.getElementById('apps-container');
                 
-                data.apps.forEach(app => {
-                    const card = document.createElement('div');
-                    card.className = 'app-card';
-                    card.innerHTML = `
-                        <div class="app-icon">${app.icon}</div>
-                        <h3>${app.name}</h3>
-                        <p>${app.description}</p>
-                        <p><small>v${app.version} • ${app.author}</small></p>
-                        <button class="install-btn" data-url="${app.download_url}">
-                            📥 Instalar en XP7 OS
-                        </button>
+                if (!data.apps || data.apps.length === 0) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                            <p>No hay aplicaciones disponibles todavía.</p>
+                            <p>¡Sé el primero en subir una!</p>
+                        </div>
                     `;
-                    container.appendChild(card);
+                    return;
+                }
+                
+                let pakCount = 0;
+                let actCount = 0;
+                
+                // Ordenar: primero .pak, luego .act
+                const sortedApps = data.apps.sort((a, b) => {
+                    const aType = detectFileType(a.download_url || '');
+                    const bType = detectFileType(b.download_url || '');
+                    return aType === 'pak' && bType === 'act' ? -1 : 
+                           aType === 'act' && bType === 'pak' ? 1 : 0;
                 });
                 
-                // Añadir funcionalidad a los botones
-                document.querySelectorAll('.install-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const url = this.getAttribute('data-url');
-                        alert('Para instalar esta app:\n1. Abre XP7 OS\n2. Ve al Gestor de Paquetes\n3. Instala desde URL: ' + url);
-                    });
+                let appsHTML = '';
+                
+                sortedApps.forEach(app => {
+                    const fileType = detectFileType(app.download_url || '');
+                    const fileName = app.download_url ? app.download_url.split('/').pop() : 'archivo';
+                    
+                    // Contar por tipo
+                    if (fileType === 'pak') pakCount++;
+                    if (fileType === 'act') actCount++;
+                    
+                    // Determinar clase CSS según tipo
+                    const cardClass = `app-card ${fileType}`;
+                    const badgeClass = `${fileType}-badge`;
+                    
+                    appsHTML += `
+                        <div class="${cardClass}">
+                            <div class="app-icon">${app.icon || getFileIcon(fileType)}</div>
+                            <h3>
+                                ${app.name || fileName}
+                                <span class="file-type-badge ${badgeClass}">
+                                    ${getFileTypeName(fileType)}
+                                </span>
+                            </h3>
+                            
+                            <p>${getFileDescription(fileType, app.description)}</p>
+                            
+                            <div style="margin: 10px 0; font-size: 0.9em; color: rgba(255,255,255,0.7);">
+                                <div><strong>Archivo:</strong> ${fileName}</div>
+                                ${app.version ? `<div><strong>Versión:</strong> ${app.version}</div>` : ''}
+                                ${app.author ? `<div><strong>Autor:</strong> ${app.author}</div>` : ''}
+                                ${app.date_added ? `<div><strong>Fecha:</strong> ${app.date_added}</div>` : ''}
+                            </div>
+                            
+                            <div class="file-actions">
+                                <button class="action-btn view-btn" 
+                                        onclick="viewFileDetails('${app.download_url}', '${app.name || fileName}')">
+                                    👁️ Ver detalles
+                                </button>
+                                <button class="action-btn download-btn" 
+                                        onclick="installFile('${app.download_url}', '${fileType}')">
+                                    ${fileType === 'pak' ? '📥 Instalar App' : '🔄 Instalar ACT'}
+                                </button>
+                            </div>
+                            
+                            <button class="install-btn ${fileType === 'act' ? 'act-btn' : ''}" 
+                                    onclick="downloadFile('${app.download_url}', '${app.name || fileName}')">
+                                ${fileType === 'pak' ? '📦 Descargar .pak' : '🔄 Descargar .act'}
+                            </button>
+                        </div>
+                    `;
                 });
-            })
-            .catch(error => {
+                
+                container.innerHTML = appsHTML;
+                
+                // Actualizar contadores
+                document.getElementById('pak-count').textContent = pakCount;
+                document.getElementById('act-count').textContent = actCount;
+                document.getElementById('total-count').textContent = data.apps.length;
+                
+            } catch (error) {
                 console.error('Error cargando la tienda:', error);
-                document.getElementById('apps-container').innerHTML = 
-                    '<p style="text-align: center; padding: 40px;">Error cargando la tienda. Intenta más tarde.</p>';
-            });
+                document.getElementById('apps-container').innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <p style="color: #f44336;">Error cargando la tienda</p>
+                        <p>${error.message}</p>
+                        <p>Verifica que el archivo store.json exista y tenga el formato correcto.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Función para descargar archivo
+        function downloadFile(url, fileName) {
+            if (!url) {
+                alert('No hay URL de descarga disponible');
+                return;
+            }
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Mostrar mensaje según tipo
+            const fileType = detectFileType(url);
+            const message = fileType === 'pak' 
+                ? 'Archivo .pak descargado. Ábrelo en XP7 OS > Gestor de Paquetes > Instalar .PAK'
+                : 'Archivo .act descargado. Ábrelo en XP7 OS > Gestor de ACT > Instalar .ACT';
+            
+            alert(message);
+        }
+
+        // Función para ver detalles del archivo
+        function viewFileDetails(url, name) {
+            const fileType = detectFileType(url);
+            const typeName = getFileTypeName(fileType);
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                backdrop-filter: blur(5px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: rgba(30, 35, 40, 0.95);
+                    border-radius: 12px;
+                    padding: 30px;
+                    max-width: 500px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    border: 1px solid rgba(255,255,255,0.1);
+                ">
+                    <h2 style="color: #4CAF50; margin-bottom: 20px;">
+                        ${getFileIcon(fileType)} Detalles del archivo
+                    </h2>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <p><strong>Nombre:</strong> ${name}</p>
+                        <p><strong>Tipo:</strong> <span class="${fileType}-badge file-type-badge">${typeName}</span></p>
+                        <p><strong>URL:</strong> <small style="color: rgba(255,255,255,0.6);">${url}</small></p>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h3>Instrucciones de instalación:</h3>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            ${fileType === 'pak' ? `
+                                <li>Descarga el archivo .pak</li>
+                                <li>En XP7 OS, abre el "Gestor de Paquetes"</li>
+                                <li>Haz clic en "Instalar .PAK"</li>
+                                <li>Selecciona el archivo descargado</li>
+                                <li>¡Listo! La app aparecerá en el escritorio</li>
+                            ` : `
+                                <li>Descarga el archivo .act</li>
+                                <li>En XP7 OS, abre el "Gestor de ACT"</li>
+                                <li>Haz clic en "Instalar .ACT"</li>
+                                <li>Selecciona el archivo descargado</li>
+                                <li>La actualización se aplicará automáticamente</li>
+                            `}
+                        </ul>
+                    </div>
+                    
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="
+                                margin-top: 20px;
+                                background: #f44336;
+                                color: white;
+                                border: none;
+                                padding: 10px 20px;
+                                border-radius: 6px;
+                                cursor: pointer;
+                                width: 100%;
+                            ">
+                        Cerrar
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Función para instalar archivo (simulación)
+        function installFile(url, fileType) {
+            const appName = url.split('/').pop();
+            
+            if (fileType === 'pak') {
+                alert(`Para instalar esta aplicación:\n\n1. Descarga el archivo\n2. En XP7 OS, ve a "Gestor de Paquetes"\n3. Haz clic en "Instalar .PAK"\n4. Selecciona: ${appName}\n\nLa aplicación aparecerá en tu escritorio.`);
+            } else if (fileType === 'act') {
+                alert(`Para instalar esta actualización:\n\n1. Descarga el archivo\n2. En XP7 OS, ve a "Gestor de ACT"\n3. Haz clic en "Instalar .ACT"\n4. Selecciona: ${appName}\n\nEl sistema se actualizará automáticamente.`);
+            }
+        }
+
+        // Cargar apps al iniciar
+        document.addEventListener('DOMContentLoaded', loadApps);
     </script>
 </body>
 </html>
