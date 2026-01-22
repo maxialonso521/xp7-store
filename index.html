@@ -4,34 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XP7 Store - Tienda Oficial</title>
+    <meta name="description" content="Tienda oficial de apps y ACTs para XP7 OS">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: white;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .header {
             background: rgba(20, 25, 30, 0.95);
             backdrop-filter: blur(20px);
-            padding: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(76, 175, 80, 0.3);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        .header-content {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -47,7 +53,7 @@
 
         .nav {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
         .nav a {
@@ -56,133 +62,60 @@
             padding: 8px 15px;
             border-radius: 5px;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav a:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(76, 175, 80, 0.2);
         }
 
         .hero {
             text-align: center;
-            padding: 60px 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 80px 20px;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 64px;
             margin-bottom: 20px;
             background: linear-gradient(135deg, #4CAF50, #45a049);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
         }
 
         .hero p {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 30px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .section {
-            margin-bottom: 60px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 32px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: rgba(30, 35, 40, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-color: #4CAF50;
-        }
-
-        .card-icon {
-            font-size: 56px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
             font-size: 20px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .card-description {
-            font-size: 14px;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 15px;
-            min-height: 40px;
+            margin-bottom: 40px;
         }
 
-        .card-footer {
+        .cta-buttons {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .version-badge {
-            background: rgba(76, 175, 80, 0.2);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-        }
-
-        .free-badge {
-            background: rgba(76, 175, 80, 0.9);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 15px 30px;
             border: none;
             border-radius: 8px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -191,470 +124,459 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+        }
+
+        .stat-card {
+            background: rgba(30, 35, 40, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .features {
+            padding: 80px 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(30, 35, 40, 0.8);
+            padding: 35px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #4CAF50;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .feature-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .api-section {
+            padding: 80px 20px;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+
+        .code-block pre {
+            color: #4CAF50;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
         .footer {
             background: rgba(20, 25, 30, 0.95);
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(76, 175, 80, 0.3);
         }
 
-        .submit-section {
-            background: rgba(76, 175, 80, 0.1);
-            border: 2px dashed rgba(76, 175, 80, 0.5);
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
+        .footer-links {
             display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
         }
 
-        .modal-content {
-            background: rgba(30, 35, 40, 0.98);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .close-modal {
-            float: right;
-            font-size: 28px;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.5);
+        .footer-links a:hover {
+            color: #4CAF50;
         }
 
-        .close-modal:hover {
-            color: white;
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
         }
 
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 32px;
+                font-size: 42px;
             }
 
-            .grid {
-                grid-template-columns: 1fr;
+            .nav {
+                flex-direction: column;
+                gap: 10px;
             }
 
             .header-content {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <span style="font-size: 36px;">🏪</span>
-                <span>XP7 Store</span>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span style="font-size: 36px;">🏪</span>
+                    <span>XP7 Store</span>
+                </div>
+                <nav class="nav">
+                    <a href="#features"><i class="fas fa-star"></i> Features</a>
+                    <a href="#api"><i class="fas fa-code"></i> API</a>
+                    <a href="https://github.com/maxialonso521/maxialonso521.github.io" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://maxialonso521.github.io/xp7" target="_blank">
+                        <i class="fas fa-desktop"></i> Abrir XP7
+                    </a>
+                </nav>
             </div>
-            <nav class="nav">
-                <a href="#apps"><i class="fas fa-box"></i> Apps</a>
-                <a href="#acts"><i class="fas fa-sync-alt"></i> ACTs</a>
-                <a href="#submit"><i class="fas fa-upload"></i> Enviar</a>
-                <a href="https://github.com/maxialonso521/maxialonso521.github.io" target="_blank">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </nav>
         </div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
-        <h1>🏪 XP7 Store</h1>
-        <p>La tienda oficial de aplicaciones y ACTs para tu sistema XP7. Todo gratis, todo open source.</p>
-        <button class="btn btn-primary" onclick="downloadConnector()">
-            <i class="fas fa-download"></i> Descargar Connector ACT
-        </button>
-    </section>
-
-    <!-- CONTENT -->
-    <div class="container">
-        <!-- SUBMIT SECTION -->
-        <div id="submit" class="submit-section">
-            <h2 style="margin-bottom: 20px;">📤 Comparte tu creación</h2>
-            <p style="margin-bottom: 25px; color: rgba(255,255,255,0.7);">
-                ¿Creaste una app o ACT increíble? ¡Compártela con la comunidad!
-            </p>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn btn-primary" onclick="openSubmitGuide()">
-                    <i class="fas fa-book"></i> Guía de Submit
-                </button>
-                <button class="btn btn-secondary" onclick="window.open('https://github.com/maxialonso521/maxialonso521.github.io/fork', '_blank')">
-                    <i class="fab fa-github"></i> Fork Repository
-                </button>
+        <div class="container">
+            <h1>🏪 XP7 Store</h1>
+            <p>La tienda oficial de apps y ACTs para tu sistema XP7</p>
+            <span class="status-badge">✅ Online • Todo gratis • Open Source</span>
+            <div class="cta-buttons" style="margin-top: 40px;">
+                <a href="#json-example" class="btn btn-primary">
+                    <i class="fas fa-database"></i> Ver estructura JSON
+                </a>
+                <a href="#api" class="btn btn-secondary">
+                    <i class="fas fa-book"></i> Documentación
+                </a>
             </div>
         </div>
+    </section>
 
-        <!-- APPS SECTION -->
-        <section id="apps" class="section">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-box"></i>
-                    Aplicaciones
-                </h2>
-                <span id="apps-count" style="color: rgba(255,255,255,0.5);">0 apps</span>
+    <section class="container">
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="appsCount">12</div>
+                <div class="stat-label">Aplicaciones</div>
             </div>
-            <div id="apps-grid" class="grid">
-                <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5); grid-column: 1/-1;">
-                    <i class="fas fa-spinner fa-spin" style="font-size: 48px; margin-bottom: 20px;"></i>
-                    <p>Cargando aplicaciones...</p>
+            <div class="stat-card">
+                <div class="stat-number" id="actsCount">8</div>
+                <div class="stat-label">ACTs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCount">20</div>
+                <div class="stat-label">Total Paquetes</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">🌟 Características</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Sistema de Seguridad</h3>
+                    <p class="feature-desc">
+                        Cada paquete es analizado automáticamente. Detecta código malicioso, 
+                        bloquea acciones peligrosas y asigna una puntuación de confianza.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">100% Gratis</h3>
+                    <p class="feature-desc">
+                        Todas las apps y ACTs son completamente gratuitas. Sin anuncios, 
+                        sin pagos ocultos, sin trucos.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Instalación Instantánea</h3>
+                    <p class="feature-desc">
+                        Instala apps y ACTs con un clic. El sistema verifica permisos 
+                        y te muestra exactamente qué hará cada paquete.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3 class="feature-title">Open Source</h3>
+                    <p class="feature-desc">
+                        Todo el código es abierto. Puedes revisar, modificar y contribuir 
+                        al catálogo en GitHub.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Actualizaciones</h3>
+                    <p class="feature-desc">
+                        El catálogo se actualiza desde GitHub Pages en tiempo real. 
+                        Siempre tendrás las últimas versiones.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3 class="feature-title">Community Driven</h3>
+                    <p class="feature-desc">
+                        Cualquiera puede enviar sus creaciones. El sistema revisa 
+                        automáticamente la seguridad antes de aprobar.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ACTS SECTION -->
-        <section id="acts" class="section">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-sync-alt"></i>
-                    ACTs (Updates)
-                </h2>
-                <span id="acts-count" style="color: rgba(255,255,255,0.5);">0 ACTs</span>
+    <section class="api-section" id="api">
+        <div class="container">
+            <h2 class="section-title">📡 API Documentation</h2>
+            <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 30px;">
+                Conecta tu sistema XP7 a la store usando esta API REST
+            </p>
+
+            <div class="code-block">
+                <pre>// Endpoint principal (ejemplo)
+GET https://[tu-usuario].github.io/xp7-store/store.json
+
+// Respuesta
+{
+  "version": "2.0.0",
+  "lastUpdate": "2025-01-22",
+  "apps": [...],
+  "acts": [...]
+}</pre>
             </div>
-            <div id="acts-grid" class="grid">
-                <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5); grid-column: 1/-1;">
-                    <i class="fas fa-spinner fa-spin" style="font-size: 48px; margin-bottom: 20px;"></i>
-                    <p>Cargando ACTs...</p>
+
+            <h3 style="margin-top: 50px; color: #4CAF50;" id="json-example">Estructura de Apps (PAK)</h3>
+            <div class="code-block">
+                <pre>{
+  "id": "mi-app",
+  "type": "application",
+  "name": "Mi App",
+  "version": "1.0.0",
+  "description": "Descripción corta",
+  "author": "Tu nombre",
+  "icon": "🚀",
+  "category": "Utilidades",
+  "width": 600,
+  "height": 400,
+  "content": "&lt;html&gt;...&lt;/html&gt;"
+}</pre>
+            </div>
+
+            <h3 style="margin-top: 50px; color: #4CAF50;">Estructura de ACTs</h3>
+            <div class="code-block">
+                <pre>{
+  "id": "mi-act",
+  "type": "update",
+  "name": "Mi ACT",
+  "version": "1.0.0",
+  "description": "Descripción corta",
+  "author": "Tu nombre",
+  "icon": "🔄",
+  "actions": [
+    {
+      "type": "showNotification",
+      "title": "Título",
+      "message": "Mensaje"
+    },
+    {
+      "type": "injectCSS",
+      "content": "body { ... }"
+    }
+  ]
+}</pre>
+            </div>
+
+            <div style="margin-top: 50px; text-align: center;">
+                <div class="code-block">
+                    <h3 style="color: #4CAF50; margin-bottom: 15px;">Ejemplo de store.json completo</h3>
+                    <pre>{
+  "version": "2.0.0",
+  "lastUpdate": "2025-01-22",
+  "apps": [
+    {
+      "id": "calculadora",
+      "type": "application",
+      "name": "Calculadora",
+      "version": "1.0.0",
+      "description": "Una calculadora básica",
+      "author": "XP7 Team",
+      "icon": "🧮",
+      "category": "Utilidades",
+      "width": 400,
+      "height": 500,
+      "content": "&lt;html&gt;&lt;body&gt;...&lt;/body&gt;&lt;/html&gt;"
+    }
+  ],
+  "acts": [
+    {
+      "id": "tema-oscuro",
+      "type": "update",
+      "name": "Tema Oscuro",
+      "version": "1.0.0",
+      "description": "Aplica un tema oscuro al sistema",
+      "author": "XP7 Team",
+      "icon": "🌙",
+      "actions": [
+        {
+          "type": "injectCSS",
+          "content": "body { background: #000; color: #fff; }"
+        }
+      ]
+    }
+  ]
+}</pre>
                 </div>
             </div>
-        </section>
-    </div>
 
-    <!-- FOOTER -->
+            <div style="margin-top: 50px; text-align: center;">
+                <a href="https://github.com/maxialonso521/maxialonso521.github.io" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> Ver ejemplos en GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
-        <p style="margin-bottom: 10px;">
-            <strong>XP7 Store</strong> - Tienda oficial de MaxiAlonso521
-        </p>
-        <p style="color: rgba(255,255,255,0.5); font-size: 14px;">
-            Todo el contenido es gratuito y open source
-        </p>
-        <div style="margin-top: 20px;">
-            <a href="https://github.com/maxialonso521" target="_blank" style="color: white; margin: 0 10px;">
-                <i class="fab fa-github" style="font-size: 24px;"></i>
-            </a>
+        <div class="container">
+            <p style="font-size: 18px; margin-bottom: 10px;">
+                <strong>XP7 Store</strong> by MaxiAlonso521
+            </p>
+            <p style="color: rgba(255,255,255,0.6); font-size: 14px;">
+                Sistema de distribución open source para XP7 OS
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/maxialonso521" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://maxialonso521.github.io/xp7" target="_blank">
+                    <i class="fas fa-desktop"></i> XP7 OS
+                </a>
+                <a href="#json-example">
+                    <i class="fas fa-database"></i> JSON Structure
+                </a>
+            </div>
+            <p style="margin-top: 30px; font-size: 12px; color: rgba(255,255,255,0.4);">
+                © 2025 MaxiAlonso521 • MIT License
+            </p>
         </div>
     </footer>
 
-    <!-- MODAL -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-
     <script>
-        // Catálogo de la store
-        const STORE_DATA = {
-            apps: [
-                {
-                    id: "weather-app",
-                    type: "application",
-                    name: "Weather App",
-                    version: "1.0.0",
-                    description: "Consulta el clima actual de cualquier ciudad",
-                    author: "Community",
-                    icon: "🌤️",
-                    width: 400,
-                    height: 300,
-                    content: `
-                        <div style="padding: 20px; text-align: center;">
-                            <h2 style="margin-bottom: 20px;">🌤️ Weather App</h2>
-                            <input type="text" id="city-input" placeholder="Ciudad..." 
-                                style="padding: 10px; width: 80%; margin-bottom: 15px; 
-                                background: rgba(255,255,255,0.1); border: none; 
-                                color: white; border-radius: 5px;">
-                            <button onclick="getWeather()" 
-                                style="padding: 10px 20px; background: #4CAF50; 
-                                color: white; border: none; border-radius: 5px; cursor: pointer;">
-                                Buscar
-                            </button>
-                            <div id="weather-result" style="margin-top: 20px;"></div>
-                            <script>
-                                function getWeather() {
-                                    const city = document.getElementById('city-input').value;
-                                    const result = document.getElementById('weather-result');
-                                    result.innerHTML = \`<p>🌡️ \${city}: 22°C - Soleado</p>\`;
-                                }
-                            <\/script>
-                        </div>
-                    `
-                },
-                {
-                    id: "notes-app",
-                    type: "application",
-                    name: "Quick Notes",
-                    version: "1.0.0",
-                    description: "Toma notas rápidas y guárdalas automáticamente",
-                    author: "Community",
-                    icon: "📝",
-                    width: 500,
-                    height: 400,
-                    content: `
-                        <div style="padding: 20px; height: 100%; display: flex; flex-direction: column;">
-                            <h2 style="margin-bottom: 15px;">📝 Quick Notes</h2>
-                            <textarea id="notes-text" 
-                                style="flex: 1; background: rgba(0,0,0,0.3); 
-                                color: white; border: none; padding: 15px; 
-                                border-radius: 5px; resize: none; font-family: monospace;"
-                                placeholder="Escribe tus notas aquí..."></textarea>
-                        </div>
-                    `
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
-            ],
-            acts: [
-                {
-                    id: "dark-theme-act",
-                    type: "update",
-                    name: "Dark Theme Pro",
-                    version: "1.0.0",
-                    description: "Tema oscuro premium con efectos visuales mejorados",
-                    author: "Community",
-                    icon: "🌙",
-                    actions: [
-                        {
-                            type: "showNotification",
-                            title: "Dark Theme Pro",
-                            message: "Tema instalado correctamente",
-                            notifType: "success"
-                        },
-                        {
-                            type: "injectCSS",
-                            content: "body { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); } .window { background: rgba(20, 20, 30, 0.95); border: 1px solid rgba(100, 100, 255, 0.3); }"
-                        }
-                    ]
-                },
-                {
-                    id: "neon-glow-act",
-                    type: "update",
-                    name: "Neon Glow Effect",
-                    version: "1.0.0",
-                    description: "Añade efectos de brillo neón a tu sistema",
-                    author: "Community",
-                    icon: "✨",
-                    actions: [
-                        {
-                            type: "showNotification",
-                            title: "Neon Glow",
-                            message: "Efectos neón activados",
-                            notifType: "success"
-                        },
-                        {
-                            type: "injectCSS",
-                            content: ".btn-primary { box-shadow: 0 0 20px rgba(76, 175, 80, 0.5); } .window { box-shadow: 0 0 30px rgba(76, 175, 80, 0.3); }"
-                        }
-                    ]
-                }
-            ]
-        };
-
-        // Renderizar catálogo
-        function renderCatalog() {
-            const appsGrid = document.getElementById('apps-grid');
-            const actsGrid = document.getElementById('acts-grid');
-            
-            // Apps
-            appsGrid.innerHTML = STORE_DATA.apps.map(app => `
-                <div class="card" onclick="showDetails('app', '${app.id}')">
-                    <div class="card-icon">${app.icon}</div>
-                    <div class="card-title">${app.name}</div>
-                    <div class="card-description">${app.description}</div>
-                    <div class="card-footer">
-                        <span class="version-badge">v${app.version}</span>
-                        <span class="free-badge">GRATIS</span>
-                    </div>
-                </div>
-            `).join('');
-            
-            // ACTs
-            actsGrid.innerHTML = STORE_DATA.acts.map(act => `
-                <div class="card" onclick="showDetails('act', '${act.id}')">
-                    <div class="card-icon">${act.icon}</div>
-                    <div class="card-title">${act.name}</div>
-                    <div class="card-description">${act.description}</div>
-                    <div class="card-footer">
-                        <span class="version-badge">v${act.version}</span>
-                        <span class="free-badge">GRATIS</span>
-                    </div>
-                </div>
-            `).join('');
-            
-            // Contadores
-            document.getElementById('apps-count').textContent = `${STORE_DATA.apps.length} apps`;
-            document.getElementById('acts-count').textContent = `${STORE_DATA.acts.length} ACTs`;
-        }
-
-        // Mostrar detalles
-        function showDetails(type, id) {
-            const item = type === 'app' ? 
-                STORE_DATA.apps.find(a => a.id === id) :
-                STORE_DATA.acts.find(a => a.id === id);
-            
-            if (!item) return;
-            
-            const modal = document.getElementById('modal');
-            const modalBody = document.getElementById('modal-body');
-            
-            modalBody.innerHTML = `
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <div style="font-size: 64px; margin-bottom: 15px;">${item.icon}</div>
-                    <h2 style="margin-bottom: 10px;">${item.name}</h2>
-                    <div style="color: #4CAF50; font-weight: 500;">v${item.version}</div>
-                </div>
-                
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #4CAF50; margin-bottom: 10px;">📝 Descripción</h3>
-                    <p style="color: rgba(255,255,255,0.7);">${item.description}</p>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
-                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                        <small>Autor</small><br>
-                        <strong>${item.author || 'Community'}</strong>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                        <small>Tipo</small><br>
-                        <strong>${type === 'app' ? 'Aplicación' : 'ACT'}</strong>
-                    </div>
-                </div>
-                
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    <button class="btn btn-primary" onclick="downloadItem('${type}', '${id}')">
-                        <i class="fas fa-download"></i> Descargar ${type === 'app' ? 'PAK' : 'ACT'}
-                    </button>
-                    <button class="btn btn-secondary" onclick="closeModal()">
-                        Cerrar
-                    </button>
-                </div>
-            `;
-            
-            modal.classList.add('active');
-        }
-
-        // Descargar item
-        function downloadItem(type, id) {
-            const item = type === 'app' ? 
-                STORE_DATA.apps.find(a => a.id === id) :
-                STORE_DATA.acts.find(a => a.id === id);
-            
-            if (!item) return;
-            
-            const json = JSON.stringify(item, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${item.id}.${type === 'app' ? 'pak' : 'act'}`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            alert(`✅ ${item.name} descargado. Abre XP7 Store Connector para instalarlo.`);
-        }
-
-        // Descargar connector
-        function downloadConnector() {
-            const connectorACT = document.querySelector('[data-artifact-id="xp7_store_act"]');
-            if (connectorACT) {
-                alert('El ACT Connector está en el primer artifact de esta página. Cópialo y guárdalo como "xp7_store_connector.act"');
-            } else {
-                alert('Ve al chat donde generé el código y descarga el primer artifact (XP7 Store Connector ACT)');
-            }
-        }
-
-        // Cerrar modal
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
-
-        // Abrir guía de submit
-        function openSubmitGuide() {
-            const modal = document.getElementById('modal');
-            const modalBody = document.getElementById('modal-body');
-            
-            modalBody.innerHTML = `
-                <h2 style="margin-bottom: 20px;">📤 Guía para Submit</h2>
-                
-                <div style="color: rgba(255,255,255,0.8); line-height: 1.8;">
-                    <h3 style="color: #4CAF50; margin: 20px 0 10px 0;">1️⃣ Prepara tu archivo</h3>
-                    <p>Crea tu APP (formato .pak) o ACT (formato .act) siguiendo la estructura JSON correspondiente.</p>
-                    
-                    <h3 style="color: #4CAF50; margin: 20px 0 10px 0;">2️⃣ Fork el repositorio</h3>
-                    <p>Haz fork de: <code style="background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 3px;">https://github.com/maxialonso521/maxialonso521.github.io</code></p>
-                    
-                    <h3 style="color: #4CAF50; margin: 20px 0 10px 0;">3️⃣ Edita store.json</h3>
-                    <p>En la carpeta <code>/xp7store/</code>, edita el archivo <code>store.json</code> y añade tu app/ACT al array correspondiente.</p>
-                    
-                    <h3 style="color: #4CAF50; margin: 20px 0 10px 0;">4️⃣ Crea Pull Request</h3>
-                    <p>Envía un PR con una descripción clara de lo que añades.</p>
-                    
-                    <h3 style="color: #4CAF50; margin: 20px 0 10px 0;">✅ Revisión</h3>
-                    <p>Revisaré tu submit y si cumple los requisitos de seguridad, ¡lo aprobaré!</p>
-                </div>
-                
-                <div style="margin-top: 30px; text-align: center;">
-                    <button class="btn btn-primary" onclick="window.open('https://github.com/maxialonso521/maxialonso521.github.io/fork', '_blank')">
-                        <i class="fab fa-github"></i> Fork Now
-                    </button>
-                    <button class="btn btn-secondary" onclick="closeModal()" style="margin-left: 10px;">
-                        Cerrar
-                    </button>
-                </div>
-            `;
-            
-            modal.classList.add('active');
-        }
-
-        // Cerrar modal al hacer clic fuera
-        document.getElementById('modal').addEventListener('click', (e) => {
-            if (e.target.id === 'modal') {
-                closeModal();
-            }
+            });
         });
 
-        // Inicializar
-        renderCatalog();
+        // Animar números al cargar
+        window.addEventListener('load', function() {
+            const appsCount = 12;
+            const actsCount = 8;
+            const totalCount = 20;
+            
+            animateNumber('appsCount', appsCount);
+            animateNumber('actsCount', actsCount);
+            animateNumber('totalCount', totalCount);
+        });
 
-        // Generar store.json para descargar
-        console.log('📦 Store data ready:', STORE_DATA);
+        function animateNumber(id, target) {
+            const element = document.getElementById(id);
+            let current = 0;
+            const increment = Math.ceil(target / 30);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = current;
+                }
+            }, 50);
+        }
     </script>
 </body>
 </html>
