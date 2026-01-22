@@ -1,6 +1,8 @@
 {
   "version": "2.0.0",
-  "lastUpdate": "2025-01-21",
+  "lastUpdate": "2025-01-22",
+  "storeURL": "https://maxialonso521.github.io/xp7-store",
+  "repository": "https://github.com/maxialonso521/maxialonso521.github.io",
   "apps": [
     {
       "id": "weather-xp7",
